@@ -11,12 +11,10 @@ const SHORTCUTS = [
   ['↑ / ↓',  'Terminal history'            ],
 ]
 
-// ── Generic portal popover ─────────────────────────────────────────────────
 function Popover({ anchorRef, open, onClose, children }) {
   const [pos, setPos] = useState({ top: 0, left: 0 })
   const boxRef = useRef()
 
-  // Position after paint so we have real dimensions
   useEffect(() => {
     if (!open) return
     const id = requestAnimationFrame(() => {
@@ -30,9 +28,6 @@ function Popover({ anchorRef, open, onClose, children }) {
     return () => cancelAnimationFrame(id)
   }, [open])
 
-  // Outside-click: use 'pointerdown' instead of 'mousedown', and check
-  // the portal div directly — createPortal keeps the DOM node in document.body
-  // so boxRef.current.contains() works fine as long as we read it correctly.
   const handleOutside = useCallback((e) => {
     const clickedAnchor = anchorRef.current?.contains(e.target)
     const clickedBox    = boxRef.current?.contains(e.target)
@@ -41,7 +36,6 @@ function Popover({ anchorRef, open, onClose, children }) {
 
   useEffect(() => {
     if (!open) return
-    // Use capture phase so we catch it before any child stops propagation
     document.addEventListener('pointerdown', handleOutside, true)
     return () => document.removeEventListener('pointerdown', handleOutside, true)
   }, [open, handleOutside])
@@ -91,7 +85,19 @@ function Divider() {
   return <div className="mx-3 my-1" style={{ borderTop: '1px solid var(--border)' }} />
 }
 
-// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// Resume download icon
+function ResumeIcon() {
+  return (
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
+         stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+      <polyline points="14 2 14 8 20 8"/>
+      <line x1="12" y1="11" x2="12" y2="17"/>
+      <polyline points="9 14 12 17 15 14"/>
+    </svg>
+  )
+}
+
 export default function ActivityBar({
   sidebarOpen,
   onToggleSidebar,
@@ -110,6 +116,13 @@ export default function ActivityBar({
   const bar = mobile
     ? 'bg-vscode-bg3 flex flex-row items-center justify-around px-2 py-1 border-b border-vscode-border'
     : 'bg-vscode-bg4 flex flex-col items-center pt-1 border-r border-vscode-border gap-0.5'
+
+  const handleResumeDownload = () => {
+    const link = document.createElement('a')
+    link.href = '/Aahana_Bobade_Resume.pdf'
+    link.download = 'Aahana_Bobade_Resume.pdf'
+    link.click()
+  }
 
   return (
     <div style={mobile ? {} : { gridArea: 'act' }} className={bar}>
@@ -155,6 +168,13 @@ export default function ActivityBar({
         </Popover>
       </div>
 
+      {/* ── Resume Download Button ── */}
+      <Btn
+        icon={<ResumeIcon />}
+        title="Download Resume"
+        onClick={handleResumeDownload}
+      />
+
       {!mobile && <div className="flex-1" />}
 
       {/* Settings */}
@@ -165,16 +185,13 @@ export default function ActivityBar({
         <Popover anchorRef={settingsRef} open={settingsOpen} onClose={() => setSettingsOpen(false)}>
           <PanelHeader>Settings</PanelHeader>
 
-          {/* Color Theme */}
           <SectionLabel>🎨 Color Theme</SectionLabel>
           {THEMES.map(t => {
             const isActive = t.id === themeId
             return (
               <button
                 key={t.id}
-                onClick={() => {
-                  onThemeChange?.(t.id)
-                }}
+                onClick={() => { onThemeChange?.(t.id) }}
                 className="w-full flex items-center gap-3 px-3 py-2 text-left text-[12px]
                            transition-colors border-l-2 cursor-pointer"
                 style={{
@@ -195,11 +212,11 @@ export default function ActivityBar({
 
           <Divider />
 
-          {/* Quick Actions */}
           <SectionLabel>⚡ Quick Actions</SectionLabel>
           {[
-            { icon: '🔍', label: 'Command Palette',  hint: 'Ctrl+P', action: () => { onOpenCmd?.();   setSettingsOpen(false) } },
+            { icon: '🔍', label: 'Command Palette',  hint: 'Ctrl+P', action: () => { onOpenCmd?.();    setSettingsOpen(false) } },
             { icon: '📟', label: 'Toggle Terminal',   hint: 'Ctrl+`', action: () => { onToggleTerm?.(); setSettingsOpen(false) } },
+            { icon: '📄', label: 'Download Resume',   hint: '',       action: () => { handleResumeDownload(); setSettingsOpen(false) } },
             { icon: '🖥️', label: 'Toggle Fullscreen', hint: 'F11',
               action: () => {
                 !document.fullscreenElement
@@ -225,7 +242,6 @@ export default function ActivityBar({
 
           <Divider />
 
-          {/* Keyboard Shortcuts */}
           <SectionLabel>⌨️ Keyboard Shortcuts</SectionLabel>
           {SHORTCUTS.map(([key, desc]) => (
             <div key={key} className="flex items-center gap-3 px-3 py-1.5">
@@ -239,7 +255,6 @@ export default function ActivityBar({
 
           <Divider />
 
-          {/* About */}
           <div className="px-3 py-3">
             <p className="text-[11px] mb-1 text-vscode-dim">Portfolio v3.0 · React + Vite + Tailwind</p>
             <p className="text-[11px] text-vscode-dim">
