@@ -18,8 +18,8 @@ export default function StatusBar({ activeFile, onToggleTerm, themeId, onThemeCh
 
       <StatusItem className="flex-shrink-0 hidden sm:flex">⎇ main</StatusItem>
 
-      <StatusItem className="flex-shrink-0 hidden md:flex truncate max-w-[120px]">
-        🔄 Aahana's Portfolio
+      <StatusItem className="flex-shrink-1 hidden md:flex truncate max-w-[120px]">
+        🔄 AB
       </StatusItem>
 
       {/* ── Right side ──────────────────────────── */}
