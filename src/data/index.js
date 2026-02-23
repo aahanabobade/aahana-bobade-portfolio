@@ -6,7 +6,7 @@ export const ME = {
   phone: "9833588502",
   dob: "28th August 2003",
   bio: "I live at the crossroads of backend engineering, AI/ML, and data science. I build systems that aren't just functional but genuinely intelligent and scalable. I make data stories that non-data people actually get.",
-  bio2:" " ,
+  bio2:"Hi, Aahana on this side! I am an aspiring computer engineer and am curious to learn new things about life every day! Perfection is something I always aim for. Being big on integrity and authenticity is something I always believe in. I enjoy painting, photography, designing, and editing. Growing up, I have always loved spending quality time making music on the keyboard. Glad to see you, cheers! " ,
   links: {
     github:    "https://github.com/aahanabobade",
     linkedin:  "https://www.linkedin.com/in/aahana-bobade",
@@ -174,7 +174,7 @@ export const EXPERIENCE = [
     tags: ["FastAPI","Python", "Django", "PostgreSQL", "Docker", "AWS","GenAI","React"],
   },
   {
-    date: "Jun 2023 — Aug 2023", current: false,
+    date: "Jun 2023 - Aug 2023", current: false,
     role: "User Experience Designer",
     company: "Zepto Digital Labs",
     location: "Thane",

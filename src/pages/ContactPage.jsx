@@ -94,7 +94,7 @@ export default function ContactPage({ onToast }) {
       }
     } catch (err) {
       setStatus('error')
-      onToast?.('❌', 'Failed to send — please email me directly.')
+      onToast?.('❌', 'Failed to send , please email me directly.')
       console.error('Formspree error:', err)
     }
   }

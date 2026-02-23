@@ -72,7 +72,7 @@ export default function TitleBar({ onOpenCmd }) {
                    px-3 py-[3px] text-[11px] text-vscode-dim
                    hover:bg-white/10 transition-colors cursor-pointer"
       >
-        🔍 aahana-bobade — portfolio
+        🔍 aahana-bobade : portfolio
         <span className="flex gap-1 ml-1">
           <kbd className="bg-white/10 px-1 py-[1px] rounded text-[10px]">Ctrl</kbd>
           <kbd className="bg-white/10 px-1 py-[1px] rounded text-[10px]">P</kbd>

@@ -51,8 +51,9 @@ export default function ReadmePage() {
       <h2 className="font-display text-[16px] font-bold text-vscode-bright mt-5 mb-2">
         💜 About
       </h2>
-      <p className="text-[14px] text-vscode-dim leading-[1.8] mb-2">{ME.bio}</p>
-      <ul className="pl-5 mb-2 space-y-1">
+      <p className="text-[14px] text-vscode-dim leading-[1.8] mb-4">{ME.bio2}</p>
+
+      <ul className="pl-6 mb-3 space-y-1">
         {[
           ['🔭', 'Building', 'scalable AI integrations', 'at EduVanceAI'],
           ['🤖', 'NLP, LLMs, RAG pipelines, Vector DBs', '', ''],
