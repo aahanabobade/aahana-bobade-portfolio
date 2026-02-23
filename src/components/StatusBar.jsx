@@ -19,7 +19,7 @@ export default function StatusBar({ activeFile, onToggleTerm, themeId, onThemeCh
       <StatusItem className="flex-shrink-0 hidden sm:flex">⎇ main</StatusItem>
 
       <StatusItem className="flex-shrink-0 hidden md:flex truncate max-w-[120px]">
-        🔄 EduVanceAI
+        🔄 Aahana's Portfolio
       </StatusItem>
 
       {/* ── Right side ──────────────────────────── */}
