@@ -63,6 +63,10 @@ export default function App() {
   }, [setThemeId, toast])
 
   const navigate = useCallback((id) => {
+    if (id === 'resume') {
+      window.open('/Aahana_Bobade_Resume.pdf', '_blank')
+      return
+    }
     setOpenTabs(tabs => tabs.includes(id) ? tabs : [...tabs, id])
     setActive(id)
   }, [])
