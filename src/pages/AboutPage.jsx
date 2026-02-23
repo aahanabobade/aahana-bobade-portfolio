@@ -16,7 +16,7 @@ export default function AboutPage() {
   return (
     <div className="px-12 py-12 max-w-[940px]">
       {/* Page comment */}
-      <p className="text-vscode-gcm italic text-[14px] mb-3">&lt;!-- about.html — Aahana Bobade --&gt;</p>
+      <p className="text-vscode-gcm italic text-[14px] mb-3">&lt;!-- about.html - Aahana Bobade --&gt;</p>
       <h2 className="font-display text-[35px] font-extrabold text-vscode-bright tracking-tight mb-1">
         About Me
       </h2>

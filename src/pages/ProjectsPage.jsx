@@ -6,7 +6,7 @@ export default function ProjectsPage() {
 
   return (
     <div className="px-12 py-12 max-w-[1100px]">
-      <p className="text-vscode-gcm italic text-xs mb-3">// projects.js — things I've built &amp; shipped</p>
+      <p className="text-vscode-gcm italic text-[14px] mb-3">// projects.js : things I've built &amp; shipped</p>
       <h2 className="font-display text-[35px] font-extrabold text-vscode-bright tracking-tight mb-1">
         Projects
       </h2>
