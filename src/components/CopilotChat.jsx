@@ -474,21 +474,6 @@ export default function CopilotChat({ onClose }) {
     if (textareaRef.current) textareaRef.current.style.height = 'auto'
     setLoading(true); setError(null)
 
-    const apiKey = import.meta.env.VITE_OPENAI_API_KEY
-
-    if (!apiKey) {
-      const fallback = `I'd love to answer that, but the AI key isn't configured yet! 🔑\n\nIn the meantime — browse Aahana's **Projects**, **Experience**, and **Skills** in the sidebar. Or reach her at **aahanabobade@gmail.com** 💜`
-      const id = Date.now() + 1
-      setMessages(prev => [...prev, { id, role: 'assistant', content: fallback }])
-      setLoading(false); setStreamingId(id)
-      let i = 0; setStreamText(s => ({ ...s, [id]: '' }))
-      const iv = setInterval(() => {
-        i = Math.min(i + 5, fallback.length)
-        setStreamText(s => ({ ...s, [id]: fallback.slice(0, i) }))
-        if (i >= fallback.length) { clearInterval(iv); setStreamingId(null) }
-      }, 10)
-      return
-    }
 
     const asstId = Date.now() + 1
     setMessages(prev => [...prev, { id: asstId, role: 'assistant', content: '' }])
@@ -497,11 +482,10 @@ export default function CopilotChat({ onClose }) {
     abortRef.current = new AbortController()
 
     try {
-      const res = await fetch('https://api.openai.com/v1/chat/completions', {
+        const res = await fetch('/api/chat', {
         method: 'POST',
         signal: abortRef.current.signal,
-        headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${apiKey}` },
-        body: JSON.stringify({
+        headers: { 'Content-Type': 'application/json' },        body: JSON.stringify({
           model: 'gpt-4o-mini',
           stream: true,
           max_tokens: 450,
