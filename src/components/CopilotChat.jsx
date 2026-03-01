@@ -65,9 +65,9 @@ const COFFEE_URL   = 'https://www.buymeacoffee.com/aahanabobade'
 const UPI_PA   = '9833588502@kotak811'
 const UPI_NAME = 'Aahana%20Bobade'
 const UPI_APPS = [
-  { name: 'GPay',    emoji: '🟢', url: `tez://upi/pay?pa=${UPI_PA}&pn=${UPI_NAME}&am=1&cu=INR` },
-  { name: 'PhonePe', emoji: '🟣', url: `phonepe://pay?pa=${UPI_PA}&pn=${UPI_NAME}&am=1&cu=INR` },
-  { name: 'Paytm',   emoji: '🔵', url: `paytmmp://pay?pa=${UPI_PA}&pn=${UPI_NAME}&am=1&cu=INR` },
+  { name: 'GPay',    emoji: '🟢', url: `tez://upi/pay?pa=${UPI_PA}&pn=${UPI_NAME}&cu=INR` },
+  { name: 'PhonePe', emoji: '🟣', url: `phonepe://pay?pa=${UPI_PA}&pn=${UPI_NAME}&cu=INR` },
+  { name: 'Paytm',   emoji: '🔵', url: `paytmmp://pay?pa=${UPI_PA}&pn=${UPI_NAME}&cu=INR` },
 ]
 const STORAGE_KEY  = 'aahana_copilot_count'
 
@@ -250,7 +250,7 @@ function CoffeeModal({ onUnlock }) {
         </a>
         {UPI_APPS.map(app => (
           <a key={app.name} href={app.url} className="cp-modal-upi-btn" style={{marginBottom: 0}}>
-            {app.emoji} PAY ₹1 VIA {app.name}
+            {app.emoji} PAY VIA {app.name} (₹1 onwards)
           </a>
         ))}
         <button className="cp-modal-skip" onClick={onUnlock}>
