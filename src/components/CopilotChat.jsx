@@ -58,8 +58,8 @@ RULES:
 // ─────────────────────────────────────────────────────────────────────────────
 // CONFIG
 // ─────────────────────────────────────────────────────────────────────────────
-const FREE_LIMIT   = 5   // messages before paywall
-const BONUS_LIMIT  = 2   // extra messages earned by playing dino (hard cap = 10 total)
+const FREE_LIMIT   = 5
+const BONUS_LIMIT  = 2
 const HARD_LIMIT   = FREE_LIMIT + BONUS_LIMIT
 const COFFEE_URL   = 'https://www.buymeacoffee.com/aahanabobade'
 const UPI_URL      = 'upi://pay?pa=9833588502@kotak811&pn=Aahana%20Bobade&cu=INR'
@@ -222,14 +222,11 @@ function CoffeeModal({ onUnlock }) {
             <span>♥</span><span>♥</span><span style={{opacity:.3}}>♥</span>
           </div>
         </div>
-
         <p className="cp-modal-sub">
           You've used your <span className="cp-pixel-highlight">{FREE_LIMIT} FREE MESSAGES</span>.<br/>
           Beat the dino game for +{BONUS_LIMIT} more, or support Aahana! ☕
         </p>
-
         <DinoGame onScoreUpdate={setScore} />
-
         <div className="cp-modal-score-row">
           <span className="cp-pixel-score">SCORE: {String(score).padStart(5,'0')}</span>
           {unlocked
@@ -237,21 +234,17 @@ function CoffeeModal({ onUnlock }) {
             : <span className="cp-pixel-target">TARGET: 00050</span>
           }
         </div>
-
         {unlocked && (
           <button className="cp-modal-unlock-btn" onClick={onUnlock}>
             ▶ CONTINUE ({BONUS_LIMIT} msgs left)
           </button>
         )}
-
         <a href={COFFEE_URL} target="_blank" rel="noreferrer" className="cp-modal-coffee-btn">
           ☕ BUY AAHANA A COFFEE
         </a>
-
         <a href={UPI_URL} className="cp-modal-upi-btn">
           🇮🇳 PAY VIA UPI (₹1 onwards · GPay / PhonePe / Paytm)
         </a>
-
         <button className="cp-modal-skip" onClick={onUnlock}>
           skip &gt;&gt; (maybe later)
         </button>
@@ -455,17 +448,8 @@ export default function CopilotChat({ onClose }) {
     const newCount = msgCount + 1
     setMsgCount(newCount)
 
-    // Hit free limit → show modal (dino game / support prompt)
-    if (newCount > FREE_LIMIT && !unlocked) {
-      setShowModal(true)
-      return
-    }
-
-    // Hit hard cap even after dino unlock → show modal again, no infinite bypass
-    if (newCount > HARD_LIMIT) {
-      setShowModal(true)
-      return
-    }
+    if (newCount > FREE_LIMIT && !unlocked) { setShowModal(true); return }
+    if (newCount > HARD_LIMIT) { setShowModal(true); return }
 
     const userMsg = { id: Date.now(), role: 'user', content: t }
     const history = [...messages, userMsg]
@@ -474,7 +458,6 @@ export default function CopilotChat({ onClose }) {
     if (textareaRef.current) textareaRef.current.style.height = 'auto'
     setLoading(true); setError(null)
 
-
     const asstId = Date.now() + 1
     setMessages(prev => [...prev, { id: asstId, role: 'assistant', content: '' }])
     setStreamText(s => ({ ...s, [asstId]: '' }))
@@ -482,13 +465,14 @@ export default function CopilotChat({ onClose }) {
     abortRef.current = new AbortController()
 
     try {
-        const res = await fetch('/api/chat', {
+      const res = await fetch('/api/chat', {
         method: 'POST',
         signal: abortRef.current.signal,
-        headers: { 'Content-Type': 'application/json' },        body: JSON.stringify({
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
           model: 'gpt-4o-mini',
-          stream: true,
-          max_tokens: 450,
+          stream: false,
+          max_tokens: 1024,
           messages: [
             { role: 'system', content: SYSTEM_PROMPT },
             ...history.map(m => ({ role: m.role, content: m.content })),
@@ -498,29 +482,16 @@ export default function CopilotChat({ onClose }) {
 
       if (!res.ok) {
         const e = await res.json().catch(() => ({}))
-        throw new Error(e?.error?.message || `Error ${res.status}`)
+        throw new Error(e?.error || `Error ${res.status}`)
       }
 
-      const reader = res.body.getReader()
-      const dec    = new TextDecoder()
-      let full     = ''
-
-      while (true) {
-        const { done, value } = await reader.read()
-        if (done) break
-        for (const line of dec.decode(value).split('\n')) {
-          if (!line.startsWith('data: ')) continue
-          const data = line.slice(6)
-          if (data === '[DONE]') break
-          try {
-            const delta = JSON.parse(data).choices?.[0]?.delta?.content || ''
-            if (delta) { full += delta; setStreamText(s => ({ ...s, [asstId]: full })) }
-          } catch {}
-        }
-      }
+      const data = await res.json()
+      const full = data.choices?.[0]?.message?.content || ''
 
       setMessages(prev => prev.map(m => m.id === asstId ? { ...m, content: full } : m))
+      setStreamText(s => ({ ...s, [asstId]: full }))
       setStreamingId(null)
+
     } catch (err) {
       if (err.name === 'AbortError') return
       setError('Something went wrong — please try again.')
@@ -535,7 +506,6 @@ export default function CopilotChat({ onClose }) {
     if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); send(input) }
   }
 
-  // Remaining count — tracks against whichever cap is active
   const cap       = unlocked ? HARD_LIMIT : FREE_LIMIT
   const remaining = Math.max(0, cap - msgCount)
   const showCountdown = remaining <= 2 && remaining > 0 && messages.length > 0
@@ -683,8 +653,6 @@ export default function CopilotChat({ onClose }) {
         .cp-send:hover:not(:disabled) { background:linear-gradient(135deg,#7c52d4,#5a3d9e); transform:translateY(-1px); box-shadow:0 4px 12px rgba(110,64,201,.4); }
         .cp-send:disabled { opacity:.3; cursor:not-allowed; transform:none; box-shadow:none; }
         .cp-disclaimer { text-align:center; font-size:10px; color:var(--dim,#3a3a3a); margin:3px 0 0; }
-
-        /* ── MODAL ── */
         .cp-modal-overlay {
           position: absolute; inset: 0; z-index: 100;
           background: rgba(0,0,0,0.85);
@@ -698,54 +666,21 @@ export default function CopilotChat({ onClose }) {
           box-shadow: 0 0 40px rgba(110,64,201,.25), 0 0 80px rgba(110,64,201,.1);
         }
         .cp-modal-header { display: flex; align-items: center; justify-content: space-between; width: 100%; }
-        .cp-pixel-title {
-          font-family: 'Press Start 2P', monospace; font-size: 11px; color: #ff4444;
-          text-shadow: 2px 2px 0 #800, 0 0 10px rgba(255,68,68,.4); letter-spacing: .05em;
-        }
+        .cp-pixel-title { font-family: 'Press Start 2P', monospace; font-size: 11px; color: #ff4444; text-shadow: 2px 2px 0 #800, 0 0 10px rgba(255,68,68,.4); letter-spacing: .05em; }
         .cp-pixel-lives { font-family: 'Press Start 2P', monospace; font-size: 12px; color: #ff4444; display: flex; gap: 3px; }
-        .cp-modal-sub {
-          font-family: 'Press Start 2P', monospace; font-size: 7px; color: rgba(255,255,255,.55);
-          text-align: center; line-height: 1.9; margin: 0;
-        }
+        .cp-modal-sub { font-family: 'Press Start 2P', monospace; font-size: 7px; color: rgba(255,255,255,.55); text-align: center; line-height: 1.9; margin: 0; }
         .cp-pixel-highlight { color: #fbbf24; }
-        .cp-modal-score-row {
-          display: flex; align-items: center; justify-content: space-between; width: 100%;
-          font-family: 'Press Start 2P', monospace; font-size: 8px;
-        }
+        .cp-modal-score-row { display: flex; align-items: center; justify-content: space-between; width: 100%; font-family: 'Press Start 2P', monospace; font-size: 8px; }
         .cp-pixel-score { color: rgba(255,255,255,.5); }
         .cp-pixel-target { color: #f44747; }
         .cp-pixel-unlocked { color: #4ec9b0; animation: cp-blink .8s infinite; }
-        .cp-modal-unlock-btn {
-          font-family: 'Press Start 2P', monospace; font-size: 9px;
-          background: linear-gradient(135deg,#4ec9b0,#22a891); color: #0d0d1a; border: none;
-          border-radius: 5px; padding: 10px 20px; cursor: pointer; width: 100%;
-          letter-spacing: .05em; transition: opacity .12s; text-shadow: none;
-          box-shadow: 0 0 12px rgba(78,201,176,.4);
-        }
+        .cp-modal-unlock-btn { font-family: 'Press Start 2P', monospace; font-size: 9px; background: linear-gradient(135deg,#4ec9b0,#22a891); color: #0d0d1a; border: none; border-radius: 5px; padding: 10px 20px; cursor: pointer; width: 100%; letter-spacing: .05em; transition: opacity .12s; text-shadow: none; box-shadow: 0 0 12px rgba(78,201,176,.4); }
         .cp-modal-unlock-btn:hover { opacity: .88; }
-        .cp-modal-coffee-btn {
-          display: block; width: 100%; text-align: center;
-          font-family: 'Press Start 2P', monospace; font-size: 8px;
-          background: linear-gradient(135deg,#f59e0b,#e07b0a); color: #0d0d1a; border: none;
-          border-radius: 5px; padding: 10px 16px; cursor: pointer;
-          text-decoration: none; letter-spacing: .04em;
-          box-shadow: 0 0 12px rgba(245,158,11,.35); transition: opacity .12s;
-        }
+        .cp-modal-coffee-btn { display: block; width: 100%; text-align: center; font-family: 'Press Start 2P', monospace; font-size: 8px; background: linear-gradient(135deg,#f59e0b,#e07b0a); color: #0d0d1a; border: none; border-radius: 5px; padding: 10px 16px; cursor: pointer; text-decoration: none; letter-spacing: .04em; box-shadow: 0 0 12px rgba(245,158,11,.35); transition: opacity .12s; }
         .cp-modal-coffee-btn:hover { opacity: .88; }
-        .cp-modal-upi-btn {
-          display: block; width: 100%; text-align: center;
-          font-family: 'Press Start 2P', monospace; font-size: 8px;
-          background: linear-gradient(135deg,#1a73e8,#0d47a1); color: white; border: none;
-          border-radius: 5px; padding: 10px 16px; cursor: pointer;
-          text-decoration: none; letter-spacing: .04em;
-          box-shadow: 0 0 12px rgba(26,115,232,.35); transition: opacity .12s;
-        }
+        .cp-modal-upi-btn { display: block; width: 100%; text-align: center; font-family: 'Press Start 2P', monospace; font-size: 8px; background: linear-gradient(135deg,#1a73e8,#0d47a1); color: white; border: none; border-radius: 5px; padding: 10px 16px; cursor: pointer; text-decoration: none; letter-spacing: .04em; box-shadow: 0 0 12px rgba(26,115,232,.35); transition: opacity .12s; }
         .cp-modal-upi-btn:hover { opacity: .88; }
-        .cp-modal-skip {
-          font-family: 'Press Start 2P', monospace; font-size: 7px;
-          background: transparent; border: none; color: rgba(255,255,255,.25);
-          cursor: pointer; text-decoration: underline; letter-spacing: .03em; padding: 0;
-        }
+        .cp-modal-skip { font-family: 'Press Start 2P', monospace; font-size: 7px; background: transparent; border: none; color: rgba(255,255,255,.25); cursor: pointer; text-decoration: underline; letter-spacing: .03em; padding: 0; }
         .cp-modal-skip:hover { color: rgba(255,255,255,.5); }
 
         @keyframes cp-in { from{opacity:0;transform:translateY(5px)} to{opacity:1;transform:translateY(0)} }
@@ -754,7 +689,6 @@ export default function CopilotChat({ onClose }) {
       `}</style>
 
       <div className="cp-root">
-
         {showModal && (
           <CoffeeModal onUnlock={() => { setShowModal(false); setUnlocked(true) }} />
         )}
@@ -852,7 +786,6 @@ export default function CopilotChat({ onClose }) {
           </div>
           <p className="cp-disclaimer">AI can make mistakes · Contact Aahana directly for important info</p>
         </div>
-
       </div>
     </>
   )
