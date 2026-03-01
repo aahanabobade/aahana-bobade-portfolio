@@ -244,8 +244,8 @@ function CoffeeModal({ onUnlock }) {
         <a href={COFFEE_URL} target="_blank" rel="noreferrer" className="cp-modal-coffee-btn">
           ☕ BUY AAHANA A COFFEE
         </a>
-        {/* UPI QR + Copy */}
-{/* UPI QR */}
+        {/* UPI QR + Copy
+
 <div style={{width:'100%', background:'rgba(255,255,255,0.04)', border:'1px solid rgba(255,255,255,0.1)', borderRadius:8, padding:'12px', display:'flex', flexDirection:'column', alignItems:'center', gap:8}}>
   <span style={{fontFamily:"'Press Start 2P',monospace", fontSize:7, color:'rgba(255,255,255,0.5)'}}>🇮🇳 PAY VIA ANY UPI APP</span>
   <img src="/upi-qr.png" alt="UPI QR Code" style={{width:140, height:140, borderRadius:6, background:'white', padding:4}} />
@@ -254,7 +254,7 @@ function CoffeeModal({ onUnlock }) {
     style={{fontFamily:"'Press Start 2P',monospace", fontSize:7, background:'rgba(255,255,255,0.06)', border:'1px solid rgba(255,255,255,0.15)', borderRadius:5, color:'#75beff', cursor:'pointer', padding:'7px 14px'}}>
     📋 COPY UPI ID
   </button>
-</div>
+</div> */}
         <button className="cp-modal-skip" onClick={onUnlock}>
           skip &gt;&gt; (maybe later)
         </button>
