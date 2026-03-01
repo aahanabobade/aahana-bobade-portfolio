@@ -85,7 +85,6 @@ function Divider() {
   return <div className="mx-3 my-1" style={{ borderTop: '1px solid var(--border)' }} />
 }
 
-// Resume download icon
 function ResumeIcon() {
   return (
     <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
@@ -98,6 +97,15 @@ function ResumeIcon() {
   )
 }
 
+function CopilotIcon() {
+  return (
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
+         stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M12 2L9.5 9.5 2 12l7.5 2.5L12 22l2.5-7.5L22 12l-7.5-2.5L12 2z"/>
+    </svg>
+  )
+}
+
 export default function ActivityBar({
   sidebarOpen,
   onToggleSidebar,
@@ -105,6 +113,8 @@ export default function ActivityBar({
   onToggleTerm,
   themeId,
   onThemeChange,
+  copilotOpen,
+  onToggleCopilot,
   mobile = false,
 }) {
   const [gitOpen,      setGitOpen]      = useState(false)
@@ -168,11 +178,15 @@ export default function ActivityBar({
         </Popover>
       </div>
 
-      {/* ── Resume Download Button ── */}
+      {/* Resume Download */}
+      <Btn icon={<ResumeIcon />} title="Download Resume" onClick={handleResumeDownload} />
+
+      {/* ✨ Copilot Chat */}
       <Btn
-        icon={<ResumeIcon />}
-        title="Download Resume"
-        onClick={handleResumeDownload}
+        icon={<CopilotIcon />}
+        title="Aahana's Copilot Chat"
+        active={copilotOpen}
+        onClick={onToggleCopilot}
       />
 
       {!mobile && <div className="flex-1" />}
@@ -214,8 +228,9 @@ export default function ActivityBar({
 
           <SectionLabel>⚡ Quick Actions</SectionLabel>
           {[
-            { icon: '🔍', label: 'Command Palette',  hint: 'Ctrl+P', action: () => { onOpenCmd?.();    setSettingsOpen(false) } },
-            { icon: '📟', label: 'Toggle Terminal',   hint: 'Ctrl+`', action: () => { onToggleTerm?.(); setSettingsOpen(false) } },
+            { icon: '🔍', label: 'Command Palette',  hint: 'Ctrl+P', action: () => { onOpenCmd?.();       setSettingsOpen(false) } },
+            { icon: '📟', label: 'Toggle Terminal',   hint: 'Ctrl+`', action: () => { onToggleTerm?.();    setSettingsOpen(false) } },
+            { icon: '✨', label: 'Copilot Chat',      hint: '',       action: () => { onToggleCopilot?.(); setSettingsOpen(false) } },
             { icon: '📄', label: 'Download Resume',   hint: '',       action: () => { handleResumeDownload(); setSettingsOpen(false) } },
             { icon: '🖥️', label: 'Toggle Fullscreen', hint: 'F11',
               action: () => {

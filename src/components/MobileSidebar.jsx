@@ -12,7 +12,6 @@ const downloadResume = () => {
   document.body.removeChild(a)
 }
 
-// ── SVG icons for links ────────────────────────────────────────────────────
 const GHIcon = () => (
   <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor">
     <path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0 1 12 6.844a9.59 9.59 0 0 1 2.504.337c1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.02 10.02 0 0 0 22 12.017C22 6.484 17.522 2 12 2z"/>
@@ -35,13 +34,13 @@ const TabIcon = () => (
 )
 
 const LINKS = [
-  { icon: <GHIcon />,  label: 'GitHub',   href: 'https://github.com/aahanabobade',                               color: '#e6edf3' },
-  { icon: <LIIcon />,  label: 'LinkedIn', href: 'https://www.linkedin.com/in/aahana-bobade',                     color: '#0a66c2' },
-  { icon: <MedIcon />, label: 'Medium',   href: 'https://medium.com/@aahanabobade',                              color: '#d0d0d0' },
-  { icon: <TabIcon />, label: 'Tableau',  href: 'https://public.tableau.com/app/profile/aahana.bobade/vizzes',   color: '#e97627' },
+  { icon: <GHIcon />,  label: 'GitHub',   href: 'https://github.com/aahanabobade',                             color: '#e6edf3' },
+  { icon: <LIIcon />,  label: 'LinkedIn', href: 'https://www.linkedin.com/in/aahana-bobade',                   color: '#0a66c2' },
+  { icon: <MedIcon />, label: 'Medium',   href: 'https://medium.com/@aahanabobade',                            color: '#d0d0d0' },
+  { icon: <TabIcon />, label: 'Tableau',  href: 'https://public.tableau.com/app/profile/aahana.bobade/vizzes', color: '#e97627' },
 ]
 
-export default function MobileSidebar({ activeFile, onNavigate, onClose, themeId, onThemeChange }) {
+export default function MobileSidebar({ activeFile, onNavigate, onClose, themeId, onThemeChange, onToggleCopilot }) {
   const [view, setView] = useState('explorer') // 'explorer' | 'settings'
 
   useEffect(() => {
@@ -53,6 +52,11 @@ export default function MobileSidebar({ activeFile, onNavigate, onClose, themeId
   const handleFileClick = (file) => {
     if (file.download) { downloadResume(); onClose(); return }
     onNavigate(file.id)
+    onClose()
+  }
+
+  const handleCopilot = () => {
+    onToggleCopilot?.()
     onClose()
   }
 
@@ -108,7 +112,7 @@ export default function MobileSidebar({ activeFile, onNavigate, onClose, themeId
               <div className="px-4 py-2 text-[10px] font-semibold tracking-widest uppercase" style={{ color: 'var(--dim)' }}>
                 📁 aahana-bobade
               </div>
-              <div className="pb-4">
+              <div className="pb-2">
                 {FILES.map(file => {
                   const Icon = FILE_ICONS[file.id]
                   const isActive = activeFile === file.id && !file.download
@@ -148,12 +152,68 @@ export default function MobileSidebar({ activeFile, onNavigate, onClose, themeId
                   )
                 })}
               </div>
+
+              {/* ✨ Copilot button — below file list, subtle purple tint */}
+              <div className="px-4 pb-4">
+                <button
+                  onClick={handleCopilot}
+                  className="w-full flex items-center gap-2.5 px-4 py-2.5 text-xs rounded-md transition-all"
+                  style={{
+                    color:      'var(--dim)',
+                    background: 'rgba(110,64,201,0.07)',
+                    border:     '1px solid rgba(110,64,201,0.2)',
+                    textAlign:  'left',
+                  }}
+                  onMouseEnter={e => {
+                    e.currentTarget.style.background = 'rgba(110,64,201,0.14)'
+                    e.currentTarget.style.borderColor = 'rgba(110,64,201,0.4)'
+                    e.currentTarget.style.color = '#b48eff'
+                  }}
+                  onMouseLeave={e => {
+                    e.currentTarget.style.background = 'rgba(110,64,201,0.07)'
+                    e.currentTarget.style.borderColor = 'rgba(110,64,201,0.2)'
+                    e.currentTarget.style.color = 'var(--dim)'
+                  }}
+                >
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none"
+                       stroke="#9370db" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M12 2L9.5 9.5 2 12l7.5 2.5L12 22l2.5-7.5L22 12l-7.5-2.5L12 2z"/>
+                  </svg>
+                  <span className="flex-1">Ask Aahana's Copilot</span>
+                  <span className="text-[10px]" style={{ color: 'var(--dim)' }}>AI</span>
+                </button>
+              </div>
             </>
           )}
 
           {/* ── SETTINGS ── */}
           {view === 'settings' && (
             <div className="py-2">
+
+              {/* ✨ Copilot at top of settings */}
+              <div className="px-4 pt-3 pb-2">
+                <button
+                  onClick={handleCopilot}
+                  className="w-full flex items-center gap-2.5 px-4 py-2.5 text-[13px] rounded-md transition-all"
+                  style={{
+                    color:      '#b48eff',
+                    background: 'rgba(110,64,201,0.1)',
+                    border:     '1px solid rgba(110,64,201,0.25)',
+                    textAlign:  'left',
+                  }}
+                  onMouseEnter={e => { e.currentTarget.style.background = 'rgba(110,64,201,0.18)' }}
+                  onMouseLeave={e => { e.currentTarget.style.background = 'rgba(110,64,201,0.1)' }}
+                >
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+                       stroke="#b48eff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M12 2L9.5 9.5 2 12l7.5 2.5L12 22l2.5-7.5L22 12l-7.5-2.5L12 2z"/>
+                  </svg>
+                  <span className="flex-1 font-medium">Open Aahana's Copilot</span>
+                  <span className="text-[10px]" style={{ color: 'rgba(180,142,255,0.55)' }}>AI ✨</span>
+                </button>
+              </div>
+
+              <Divider />
 
               {/* Color Theme */}
               <SectionLabel>🎨 Color Theme</SectionLabel>
@@ -202,7 +262,7 @@ export default function MobileSidebar({ activeFile, onNavigate, onClose, themeId
 
               <Divider />
 
-              {/* Links — real SVG icons with brand colors */}
+              {/* Links */}
               <SectionLabel>🌐 Links</SectionLabel>
               {LINKS.map(({ icon, label, href, color }) => (
                 <a
@@ -221,10 +281,7 @@ export default function MobileSidebar({ activeFile, onNavigate, onClose, themeId
                     e.currentTarget.style.background = 'transparent'
                   }}
                 >
-                  {/* Always brand-colored icon */}
-                  <span style={{ color, display: 'flex', alignItems: 'center', flexShrink: 0 }}>
-                    {icon}
-                  </span>
+                  <span style={{ color, display: 'flex', alignItems: 'center', flexShrink: 0 }}>{icon}</span>
                   <span className="flex-1">{label}</span>
                   <span className="text-[11px] opacity-40">↗</span>
                 </a>
@@ -232,7 +289,6 @@ export default function MobileSidebar({ activeFile, onNavigate, onClose, themeId
 
               <Divider />
 
-              {/* About */}
               <div className="px-5 py-3">
                 <p className="text-[11px] mb-1" style={{ color: 'var(--dim)' }}>Portfolio v3.0 · React + Vite + Tailwind</p>
                 <p className="text-[11px]" style={{ color: 'var(--dim)' }}>

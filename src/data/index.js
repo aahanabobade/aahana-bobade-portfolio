@@ -118,44 +118,107 @@ export const PROJECTS = [
 ];
 
 export const SKILLS = [
-  { group: "Languages", items: [
-    { name: "Python",     pct: 92, color: "#ff6fd8" },
-    { name: "Java",       pct: 72, color: "#f97316" },
-    { name: "JavaScript", pct: 78, color: "#facc15" },
-    { name: "TypeScript", pct: 74, color: "#38bdf8" },
-    { name: "SQL",        pct: 88, color: "#a855f7" },
-  ]},
-  { group: "Backend & APIs", items: [
-    { name: "FastAPI", pct: 90, color: "#34d399" },
-    { name: "Flask",   pct: 82, color: "#6366f1" },
-    { name: "Django",  pct: 76, color: "#22c55e" },
-  ]},
-  { group: "AI · ML · Data Science", items: [
-    { name: "PyTorch",      pct: 85, color: "#ef4444" },
-    { name: "TensorFlow",   pct: 80, color: "#f97316" },
-    { name: "scikit-learn", pct: 90, color: "#facc15" },
-    { name: "Pandas",       pct: 88, color: "#6366f1" },
-    { name: "NumPy",        pct: 86, color: "#38bdf8" },
-    { name: "HuggingFace",  pct: 83, color: "#fbbf24" },
-    { name: "LangChain",    pct: 82, color: "#34d399" },
-  ]},
-  { group: "Databases", items: [
-    { name: "PostgreSQL", pct: 85, color: "#38bdf8" },
-    { name: "Redis",      pct: 72, color: "#ef4444" },
-  ]},
-  { group: "Frontend", items: [
-    { name: "React",      pct: 80, color: "#38bdf8" },
-    { name: "Next.js",    pct: 72, color: "#a855f7" },
-    { name: "TailwindCSS",pct: 85, color: "#34d399" },
-  ]},
-  { group: "DevOps & Tools", items: [
-    { name: "Docker",  pct: 80, color: "#38bdf8" },
-    { name: "Git",     pct: 90, color: "#f97316" },
-    { name: "Linux",   pct: 88, color: "#facc15" },
-    { name: "AWS",     pct: 74, color: "#f97316" },
-    { name: "Jupyter", pct: 85, color: "#ff6fd8" },
-  ]},
-]
+  {
+    group: "Languages",
+    items: [
+      { name: "Python", pct: 92, color: "#ff6fd8" },
+      { name: "Java", pct: 72, color: "#f97316" },
+      { name: "JavaScript", pct: 78, color: "#facc15" },
+      { name: "TypeScript", pct: 74, color: "#38bdf8" },
+      { name: "SQL", pct: 88, color: "#a855f7" },
+    ],
+  },
+
+  {
+    group: "Generative AI & LLM Engineering",
+    items: [
+      { name: "LangChain", pct: 82, color: "#34d399" },
+      { name: "LangGraph", pct: 78, color: "#22c55e" },
+      { name: "RAG Pipelines", pct: 85, color: "#38bdf8" },
+      { name: "Prompt Engineering", pct: 90, color: "#fbbf24" },
+      { name: "Agentic Workflows", pct: 80, color: "#a855f7" },
+      { name: "Hugging Face Transformers", pct: 83, color: "#f97316" },
+    ],
+  },
+
+  {
+    group: "AI · ML · Data Science",
+    items: [
+      { name: "PyTorch", pct: 85, color: "#ef4444" },
+      { name: "TensorFlow", pct: 80, color: "#f97316" },
+      { name: "scikit-learn", pct: 90, color: "#facc15" },
+      { name: "Pandas", pct: 88, color: "#6366f1" },
+      { name: "NumPy", pct: 86, color: "#38bdf8" },
+      { name: "spaCy", pct: 80, color: "#22c55e" },
+      { name: "NLTK", pct: 75, color: "#6366f1" },
+    ],
+  },
+
+  {
+    group: "Backend & APIs",
+    items: [
+      { name: "FastAPI", pct: 90, color: "#34d399" },
+      { name: "Flask", pct: 82, color: "#6366f1" },
+      { name: "Django", pct: 76, color: "#22c55e" },
+    ],
+  },
+
+  {
+    group: "Databases",
+    items: [
+      { name: "PostgreSQL", pct: 85, color: "#38bdf8" },
+      { name: "Redis", pct: 72, color: "#ef4444" },
+      { name: "Neo4j", pct: 80, color: "#4cceb4" },
+    ],
+  },
+
+  {
+    group: "Vector Databases",
+    items: [
+      { name: "FAISS", pct: 82, color: "#38bdf8" },
+      { name: "Pinecone", pct: 78, color: "#a855f7" },
+    ],
+  },
+
+  {
+    group: "DevOps & Tools",
+    items: [
+      { name: "Docker", pct: 80, color: "#38bdf8" },
+      { name: "Git", pct: 90, color: "#f97316" },
+      { name: "Linux", pct: 88, color: "#facc15" },
+      { name: "AWS", pct: 74, color: "#f97316" },
+      { name: "GitHub Actions", pct: 80, color: "#6366f1" },
+      { name: "Jupyter", pct: 85, color: "#ff6fd8" },
+    ],
+  },
+
+  {
+    group: "Frontend",
+    items: [
+      { name: "React", pct: 80, color: "#38bdf8" },
+      { name: "Next.js", pct: 72, color: "#a855f7" },
+      { name: "TailwindCSS", pct: 85, color: "#34d399" },
+      { name: "Responsive Design", pct: 88, color: "#22c55e" },
+    ],
+  },
+
+  {
+    group: "Design",
+    items: [
+      { name: "Figma", pct: 78, color: "#a855f7" },
+      { name: "UX Prototyping", pct: 75, color: "#34d399" },
+    ],
+  },
+
+
+  {
+    group: "Data Analytics",
+    items: [
+      { name: "Tableau", pct: 72, color: "#f97316" },
+      { name: "Power BI", pct: 74, color: "#facc15" },
+    ],
+  },
+];
 
 export const PILLS = [
   "Pandas", "NumPy", "Matplotlib", "spaCy", "NLTK", "Jupyter",
