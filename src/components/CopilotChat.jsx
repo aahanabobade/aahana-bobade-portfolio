@@ -62,7 +62,13 @@ const FREE_LIMIT   = 5
 const BONUS_LIMIT  = 2
 const HARD_LIMIT   = FREE_LIMIT + BONUS_LIMIT
 const COFFEE_URL   = 'https://www.buymeacoffee.com/aahanabobade'
-const UPI_URL      = 'upi://pay?pa=9833588502@kotak811&pn=Aahana%20Bobade&cu=INR'
+const UPI_PA   = '9833588502@kotak811'
+const UPI_NAME = 'Aahana%20Bobade'
+const UPI_APPS = [
+  { name: 'GPay',    emoji: '🟢', url: `tez://upi/pay?pa=${UPI_PA}&pn=${UPI_NAME}&am=1&cu=INR` },
+  { name: 'PhonePe', emoji: '🟣', url: `phonepe://pay?pa=${UPI_PA}&pn=${UPI_NAME}&am=1&cu=INR` },
+  { name: 'Paytm',   emoji: '🔵', url: `paytmmp://pay?pa=${UPI_PA}&pn=${UPI_NAME}&am=1&cu=INR` },
+]
 const STORAGE_KEY  = 'aahana_copilot_count'
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -242,9 +248,11 @@ function CoffeeModal({ onUnlock }) {
         <a href={COFFEE_URL} target="_blank" rel="noreferrer" className="cp-modal-coffee-btn">
           ☕ BUY AAHANA A COFFEE
         </a>
-        <a href={UPI_URL} className="cp-modal-upi-btn">
-          🇮🇳 PAY VIA UPI (₹1 onwards · GPay / PhonePe / Paytm)
-        </a>
+        {UPI_APPS.map(app => (
+          <a key={app.name} href={app.url} className="cp-modal-upi-btn" style={{marginBottom: 0}}>
+            {app.emoji} PAY ₹1 VIA {app.name}
+          </a>
+        ))}
         <button className="cp-modal-skip" onClick={onUnlock}>
           skip &gt;&gt; (maybe later)
         </button>
