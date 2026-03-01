@@ -64,11 +64,7 @@ const HARD_LIMIT   = FREE_LIMIT + BONUS_LIMIT
 const COFFEE_URL   = 'https://www.buymeacoffee.com/aahanabobade'
 const UPI_PA   = '9833588502@kotak811'
 const UPI_NAME = 'Aahana%20Bobade'
-const UPI_APPS = [
-  { name: 'GPay',    emoji: '🟢', url: `tez://upi/pay?pa=${UPI_PA}&pn=${UPI_NAME}&cu=INR` },
-  { name: 'PhonePe', emoji: '🟣', url: `phonepe://pay?pa=${UPI_PA}&pn=${UPI_NAME}&cu=INR` },
-  { name: 'Paytm',   emoji: '🔵', url: `paytmmp://pay?pa=${UPI_PA}&pn=${UPI_NAME}&cu=INR` },
-]
+
 const STORAGE_KEY  = 'aahana_copilot_count'
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -248,11 +244,23 @@ function CoffeeModal({ onUnlock }) {
         <a href={COFFEE_URL} target="_blank" rel="noreferrer" className="cp-modal-coffee-btn">
           ☕ BUY AAHANA A COFFEE
         </a>
-        {UPI_APPS.map(app => (
-          <a key={app.name} href={app.url} className="cp-modal-upi-btn" style={{marginBottom: 0}}>
-            {app.emoji} PAY VIA {app.name} (₹1 onwards)
-          </a>
-        ))}
+        {/* UPI QR + Copy */}
+<div style={{width:'100%', background:'rgba(255,255,255,0.04)', border:'1px solid rgba(255,255,255,0.1)', borderRadius:8, padding:'12px', display:'flex', flexDirection:'column', alignItems:'center', gap:8}}>
+  <span style={{fontFamily:"'Press Start 2P',monospace", fontSize:7, color:'rgba(255,255,255,0.5)'}}>🇮🇳 PAY VIA ANY UPI APP</span>
+  <img
+    src={`https://api.qrserver.com/v1/create-qr-code/?size=140x140&data=${encodeURIComponent('upi://pay?pa=9833588502@kotak811&pn=Aahana%20Bobade&cu=INR')}`}
+    alt="UPI QR Code"
+    style={{width:140, height:140, borderRadius:6, background:'white', padding:4}}
+  />
+  <span style={{fontFamily:"'Press Start 2P',monospace", fontSize:7, color:'rgba(255,255,255,0.4)'}}>scan with GPay · PhonePe · Paytm · any app</span>
+  <button
+    onClick={() => navigator.clipboard.writeText('9833588502@kotak811')}
+    style={{fontFamily:"'Press Start 2P',monospace", fontSize:7, background:'rgba(255,255,255,0.06)', border:'1px solid rgba(255,255,255,0.15)', borderRadius:5, color:'#75beff', cursor:'pointer', padding:'7px 14px', letterSpacing:'.03em'}}
+  >
+    📋 COPY UPI ID
+  </button>
+  <span style={{fontFamily:"'Press Start 2P',monospace", fontSize:6, color:'rgba(255,255,255,0.25)'}}>₹1 onwards · no card needed</span>
+</div>
         <button className="cp-modal-skip" onClick={onUnlock}>
           skip &gt;&gt; (maybe later)
         </button>
