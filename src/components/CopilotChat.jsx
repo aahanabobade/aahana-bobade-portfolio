@@ -245,21 +245,15 @@ function CoffeeModal({ onUnlock }) {
           ☕ BUY AAHANA A COFFEE
         </a>
         {/* UPI QR + Copy */}
+{/* UPI QR */}
 <div style={{width:'100%', background:'rgba(255,255,255,0.04)', border:'1px solid rgba(255,255,255,0.1)', borderRadius:8, padding:'12px', display:'flex', flexDirection:'column', alignItems:'center', gap:8}}>
   <span style={{fontFamily:"'Press Start 2P',monospace", fontSize:7, color:'rgba(255,255,255,0.5)'}}>🇮🇳 PAY VIA ANY UPI APP</span>
-  <img
-    src={`https://api.qrserver.com/v1/create-qr-code/?size=140x140&data=${encodeURIComponent('upi://pay?pa=9833588502@kotak811&pn=Aahana%20Bobade&cu=INR')}`}
-    alt="UPI QR Code"
-    style={{width:140, height:140, borderRadius:6, background:'white', padding:4}}
-  />
+  <img src="/upi-qr.png" alt="UPI QR Code" style={{width:140, height:140, borderRadius:6, background:'white', padding:4}} />
   <span style={{fontFamily:"'Press Start 2P',monospace", fontSize:7, color:'rgba(255,255,255,0.4)'}}>scan with GPay · PhonePe · Paytm · any app</span>
-  <button
-    onClick={() => navigator.clipboard.writeText('9833588502@kotak811')}
-    style={{fontFamily:"'Press Start 2P',monospace", fontSize:7, background:'rgba(255,255,255,0.06)', border:'1px solid rgba(255,255,255,0.15)', borderRadius:5, color:'#75beff', cursor:'pointer', padding:'7px 14px', letterSpacing:'.03em'}}
-  >
+  <button onClick={() => navigator.clipboard.writeText('9833588502@kotak811')}
+    style={{fontFamily:"'Press Start 2P',monospace", fontSize:7, background:'rgba(255,255,255,0.06)', border:'1px solid rgba(255,255,255,0.15)', borderRadius:5, color:'#75beff', cursor:'pointer', padding:'7px 14px'}}>
     📋 COPY UPI ID
   </button>
-  <span style={{fontFamily:"'Press Start 2P',monospace", fontSize:6, color:'rgba(255,255,255,0.25)'}}>₹1 onwards · no card needed</span>
 </div>
         <button className="cp-modal-skip" onClick={onUnlock}>
           skip &gt;&gt; (maybe later)
