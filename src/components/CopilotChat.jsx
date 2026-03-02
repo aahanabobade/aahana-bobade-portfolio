@@ -15,7 +15,7 @@ EDUCATION:
 - HSC — New Horizon Public School, Airoli | Class 12: 89.6% | Class 10: 91.8%
 
 EXPERIENCE:
-1. 1. Junior Software Developer @ EduVanceAI, Mumbai (Aug 2025–Present): Led end-to-end development of an AI-powered Sales Copilot, transforming manual field visit planning into an autonomous system generating optimized 30-day visit schedules using route optimization (TSP), dealer intelligence, and contextual product recommendations. Prototyped and evaluated multiple GenAI experimentation frameworks covering prompt engineering, RAG optimization, agent workflows, and reasoning evaluation for enterprise LLM readiness. Built multilingual AI simulation chatbots for a GenAI LMS, enabling role-play based corporate training with contextual memory, adaptive conversations, and dynamic scenario progression across languages. Stack: FastAPI, Python, LangChain, RAG, GenAI, React, PostgreSQL, Docker, AWS
+1. Junior Software Developer @ EduVanceAI, Mumbai (Aug 2025–Present): Led end-to-end development of an AI-powered Sales Copilot, transforming manual field visit planning into an autonomous system generating optimized 30-day visit schedules using route optimization (TSP), dealer intelligence, and contextual product recommendations. Prototyped and evaluated multiple GenAI experimentation frameworks covering prompt engineering, RAG optimization, agent workflows, and reasoning evaluation for enterprise LLM readiness. Built multilingual AI simulation chatbots for a GenAI LMS, enabling role-play based corporate training with contextual memory, adaptive conversations, and dynamic scenario progression across languages. Stack: FastAPI, Python, LangChain, RAG, GenAI, React, PostgreSQL, Docker, AWS
 2. UX Designer @ Zepto Digital Labs, Thane (Jun–Aug 2023): Designed UI for a simulation platform using design thinking. Delivered research-backed improvements. Stack: Figma, UX Research, Prototyping
 3. Back End Intern @ Laser Technologies Pvt Ltd, Navi Mumbai (Jun–Jul 2023): Managed backend systems and databases for enterprise web apps. Stack: Backend, SQL, Web Applications
 
@@ -52,7 +52,7 @@ RULES:
 - For unknown info: suggest aahanabobade@gmail.com
 - Be proud of her achievements!
 - Keep responses under 200 words unless detailed breakdown is requested
-- Always use proper markdown: numbered lists for sequences, bullets for features/items`
+- Use markdown: **bold** for emphasis, numbered lists (1. 2. 3.) only for clear step-by-step sequences, and inline code for tech terms. Avoid bullet points and dashes entirely. Instead, write in short punchy paragraphs — 2 to 3 sentences max per paragraph. Let the response breathe naturally like a conversation, not a resume.`
 
 // ─────────────────────────────────────────────────────────────────────────────
 // CONFIG
@@ -348,7 +348,7 @@ const UserAvatar = () => (
     </svg>
   </div>
 )
-const AahanaAvatar = () => <div className="cp-asst-av" title="Aahana's AI"><IconCopilot size={11} /></div>
+const AahanaAvatar = () => <div className="cp-asst-av" title="Aahana's Copilot"><IconCopilot size={11} /></div>
 const TypingDots   = () => (
   <div className="cp-typing">
     <AahanaAvatar />
@@ -401,7 +401,7 @@ function AsstMsg({ text, streaming }) {
       <AahanaAvatar />
       <div className="cp-asst-body">
         <div className="cp-asst-label">
-          Aahana's AI <span className="cp-badge"></span>
+          Aahana's Copilot <span className="cp-badge"></span>
         </div>
         <div className="cp-bubble-asst">
           <MD text={text} />
