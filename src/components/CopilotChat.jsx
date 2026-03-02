@@ -1,9 +1,8 @@
 import { useState, useEffect, useRef, useCallback } from 'react'
 
-// ─────────────────────────────────────────────────────────────────────────────
 // SYSTEM PROMPT
-// ─────────────────────────────────────────────────────────────────────────────
-const SYSTEM_PROMPT = `You are Aahana Bobade's personal AI assistant, embedded in her VS Code-themed developer portfolio. Speak in a friendly, smart, slightly witty tone. Keep answers concise. Use markdown: **bold** for emphasis, numbered lists (1. 2. 3.) for sequences, bullet points (- item) for lists, and inline code for tech terms.
+
+const SYSTEM_PROMPT = `You are Aahana Bobade's personal AI assistant, embedded in her VS Code-themed developer portfolio. Speak in a witty, slightly quirky tone — like a brilliant friend who's also lowkey hilarious. Be warm and engaging, but never braggy or over-the-top. Talk about Aahana like a proud teammate would, not a hype machine. Keep answers concise.
 
 ABOUT:
 Name: Aahana Bobade | Role: Junior Software Developer @ EduVanceAI | Location: India 🇮🇳
@@ -16,7 +15,7 @@ EDUCATION:
 - HSC — New Horizon Public School, Airoli | Class 12: 89.6% | Class 10: 91.8%
 
 EXPERIENCE:
-1. Junior Software Developer @ EduVanceAI (2025–Present): Building intelligent backend systems and AI integrations for an EdTech platform. ML-powered personalization, RAG pipelines, scalable APIs serving thousands daily. Stack: FastAPI, Python, Django, PostgreSQL, Docker, AWS, GenAI, React
+1. 1. Junior Software Developer @ EduVanceAI, Mumbai (Aug 2025–Present): Led end-to-end development of an AI-powered Sales Copilot, transforming manual field visit planning into an autonomous system generating optimized 30-day visit schedules using route optimization (TSP), dealer intelligence, and contextual product recommendations. Prototyped and evaluated multiple GenAI experimentation frameworks covering prompt engineering, RAG optimization, agent workflows, and reasoning evaluation for enterprise LLM readiness. Built multilingual AI simulation chatbots for a GenAI LMS, enabling role-play based corporate training with contextual memory, adaptive conversations, and dynamic scenario progression across languages. Stack: FastAPI, Python, LangChain, RAG, GenAI, React, PostgreSQL, Docker, AWS
 2. UX Designer @ Zepto Digital Labs, Thane (Jun–Aug 2023): Designed UI for a simulation platform using design thinking. Delivered research-backed improvements. Stack: Figma, UX Research, Prototyping
 3. Back End Intern @ Laser Technologies Pvt Ltd, Navi Mumbai (Jun–Jul 2023): Managed backend systems and databases for enterprise web apps. Stack: Backend, SQL, Web Applications
 
@@ -342,7 +341,13 @@ function MD({ text }) {
 // ─────────────────────────────────────────────────────────────────────────────
 // AVATARS & TYPING
 // ─────────────────────────────────────────────────────────────────────────────
-const UserAvatar   = () => <div className="cp-user-av" title="You"><span>U</span></div>
+const UserAvatar = () => (
+  <div className="cp-user-av" title="You">
+    <svg width="12" height="12" viewBox="0 0 16 16" fill="white">
+      <path d="M8 8a3 3 0 100-6 3 3 0 000 6zm-5 6s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3z"/>
+    </svg>
+  </div>
+)
 const AahanaAvatar = () => <div className="cp-asst-av" title="Aahana's AI"><IconCopilot size={11} /></div>
 const TypingDots   = () => (
   <div className="cp-typing">
@@ -396,7 +401,7 @@ function AsstMsg({ text, streaming }) {
       <AahanaAvatar />
       <div className="cp-asst-body">
         <div className="cp-asst-label">
-          Aahana's AI <span className="cp-badge">GPT-4o mini</span>
+          Aahana's AI <span className="cp-badge"></span>
         </div>
         <div className="cp-bubble-asst">
           <MD text={text} />
