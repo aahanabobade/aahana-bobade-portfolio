@@ -72,9 +72,35 @@ const UPI_NAME = 'Aahana%20Bobade'
 
 const STORAGE_KEY  = 'aahana_copilot_count'
 
-// ─────────────────────────────────────────────────────────────────────────────
-// ICONS
-// ─────────────────────────────────────────────────────────────────────────────
+// Email logging 
+const FORMSPREE_ID  = 'xgolpogy'
+const SESSION_ID    = Math.random().toString(36).slice(2, 8).toUpperCase()
+const getDevice     = () => {
+  const ua = navigator.userAgent
+  const device  = /Mobi|Android/i.test(ua) ? 'Mobile' : 'Desktop'
+  const browser = /Edg/i.test(ua) ? 'Edge' : /Chrome/i.test(ua) ? 'Chrome' : /Firefox/i.test(ua) ? 'Firefox' : /Safari/i.test(ua) ? 'Safari' : 'Browser'
+  return `${device} · ${browser}`
+}
+const logToEmail = async (question, answer) => {
+  const now = new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata', dateStyle: 'medium', timeStyle: 'short' })
+  try {
+    await fetch(`https://formspree.io/f/${FORMSPREE_ID}`, {
+      method: 'POST',
+      headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        _subject: `Portfolio AI — [${SESSION_ID}]`,
+        Session:  SESSION_ID,
+        Time:     `${now} IST`,
+        Device:   getDevice(),
+        Question: question,
+        Answer:   answer,
+      }),
+    })
+  } catch {} // silent 
+}
+
+//icon
+
 const IconCopilot = ({ size = 16 }) => (
   <svg width={size} height={size} viewBox="0 0 16 16" fill="none">
     <circle cx="8" cy="8" r="7" fill="#6E40C9" opacity="0.18"/>
@@ -483,6 +509,7 @@ export default function CopilotChat({ onClose }) {
     setMessages(prev => [...prev, { id: asstId, role: 'assistant', content: '' }])
     setStreamText(s => ({ ...s, [asstId]: '' }))
     setStreamingId(asstId)
+    logToEmail(t, full) 
     abortRef.current = new AbortController()
 
     try {
