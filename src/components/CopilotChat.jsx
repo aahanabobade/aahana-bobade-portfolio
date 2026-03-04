@@ -509,7 +509,6 @@ export default function CopilotChat({ onClose }) {
     setMessages(prev => [...prev, { id: asstId, role: 'assistant', content: '' }])
     setStreamText(s => ({ ...s, [asstId]: '' }))
     setStreamingId(asstId)
-    logToEmail(t, full) 
     abortRef.current = new AbortController()
 
     try {
@@ -539,6 +538,7 @@ export default function CopilotChat({ onClose }) {
       setMessages(prev => prev.map(m => m.id === asstId ? { ...m, content: full } : m))
       setStreamText(s => ({ ...s, [asstId]: full }))
       setStreamingId(null)
+      logToEmail(t, full)  
 
     } catch (err) {
       if (err.name === 'AbortError') return
