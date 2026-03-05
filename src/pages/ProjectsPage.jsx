@@ -50,7 +50,7 @@ export default function ProjectsPage() {
               </div>
             </div>
 
-            {/* Type */}
+            Type
             <div
               className="text-[13px] uppercase tracking-[0.15em] mb-1.5 font-medium"
               style={{ color: p.accent }}
