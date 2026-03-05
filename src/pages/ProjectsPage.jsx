@@ -22,7 +22,6 @@ export default function ProjectsPage() {
                        transition-all duration-200"
             style={{ '--card-accent': p.accent }}
           >
-            {/* Top row */}
             {/* Icon */}
             <div className="mb-3">
               <span className="text-[22px]">{p.icon}</span>
@@ -48,14 +47,6 @@ export default function ProjectsPage() {
                   </a>
                 )}
               </div>
-            </div>
-
-            Type
-            <div
-              className="text-[13px] uppercase tracking-[0.15em] mb-1.5 font-medium"
-              style={{ color: p.accent }}
-            >
-              {p.type}
             </div>
 
             {/* Name */}
