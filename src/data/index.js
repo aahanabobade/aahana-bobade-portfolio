@@ -71,7 +71,18 @@ export const PROJECTS = [
     period: "Aug 2024 – Apr 2025",
   },
   {
-    id: 2, icon: "🕉️", accent: "#4ec9b0",
+    id: 2, icon: "🧠", accent: "#6c63ff",
+    type: "AI · GraphRAG · Full Stack",
+    name: "OrgMind - Company Intelligence Assistant",
+    desc: "Hybrid GraphRAG system combining Neo4j knowledge graph traversal with Pinecone vector search. Answers org questions standard RAG can't — like 'Who owns this project and what have they written about security?' Built with FastAPI, React, and GPT-4o.",
+    tags: ["Neo4j", "Pinecone", "GPT-4o", "FastAPI", "React", "LangChain", "GraphRAG"],
+    link: "https://github.com/aahanabobade/OrgMind",
+    demo: "https://orgmind.vercel.app/",
+    period: "Feb 2026",
+  },
+
+  {
+    id: 3, icon: "🕉️", accent: "#4ec9b0",
     type: "Full Stack · NLP · GenAI",
     name: "Gita-GPT",
     desc: "Web app that suggests Bhagavad Gita verses based on user emotion. Integrated Hume AI for empathetic chatbot support — boosted engagement by 60%. Won 1st Prize at Cognition Technical Fest 2023.",
