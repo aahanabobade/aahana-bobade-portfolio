@@ -23,21 +23,31 @@ export default function ProjectsPage() {
             style={{ '--card-accent': p.accent }}
           >
             {/* Top row */}
-            <div className="flex gap-2">
-              <a href={p.link} target="_blank" rel="noreferrer"
-                className="text-[11px] text-vscode-dim no-underline px-2 py-0.5
-                          border border-vscode-border rounded-sm
-                          hover:text-vscode-text hover:border-white/28 transition-colors">
-                GitHub ↗
-              </a>
-              {p.demo && (
-                <a href={p.demo} target="_blank" rel="noreferrer"
-                  className="text-[11px] no-underline px-2 py-0.5
-                            border rounded-sm transition-colors"
-                  style={{ color: p.accent, borderColor: p.accent + '55' }}>
-                  Live ↗
+            {/* Icon */}
+            <div className="mb-3">
+              <span className="text-[22px]">{p.icon}</span>
+            </div>
+
+            {/* Type + links on same row */}
+            <div className="flex justify-between items-center mb-1.5">
+              <div className="text-[13px] uppercase tracking-[0.15em] font-medium" style={{ color: p.accent }}>
+                {p.type}
+              </div>
+              <div className="flex gap-2">
+                <a href={p.link} target="_blank" rel="noreferrer"
+                  className="text-[11px] text-vscode-dim no-underline px-2 py-0.5
+                            border border-vscode-border rounded-sm
+                            hover:text-vscode-text hover:border-white/28 transition-colors">
+                  GitHub ↗
                 </a>
-              )}
+                {p.demo && (
+                  <a href={p.demo} target="_blank" rel="noreferrer"
+                    className="text-[11px] no-underline px-2 py-0.5 border rounded-sm transition-colors"
+                    style={{ color: p.accent, borderColor: p.accent + '55' }}>
+                    Live ↗
+                  </a>
+                )}
+              </div>
             </div>
 
             {/* Type */}
