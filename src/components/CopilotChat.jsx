@@ -106,28 +106,41 @@ const STORAGE_KEY  = 'aahana_copilot_count'
 // Email logging 
 const FORMSPREE_ID  = 'xgolpogy'
 const SESSION_ID    = Math.random().toString(36).slice(2, 8).toUpperCase()
-const getDevice     = () => {
+const getDevice = () => {
   const ua = navigator.userAgent
   const device  = /Mobi|Android/i.test(ua) ? 'Mobile' : 'Desktop'
   const browser = /Edg/i.test(ua) ? 'Edge' : /Chrome/i.test(ua) ? 'Chrome' : /Firefox/i.test(ua) ? 'Firefox' : /Safari/i.test(ua) ? 'Safari' : 'Browser'
-  return `${device} · ${browser}`
+  const screen  = `${window.screen.width}x${window.screen.height}`
+  const lang    = navigator.language || 'unknown'
+  const ref     = document.referrer || 'direct'
+  return `${device} · ${browser} · ${screen} · ${lang} · from: ${ref}`
 }
+
 const logToEmail = async (question, answer) => {
   const now = new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata', dateStyle: 'medium', timeStyle: 'short' })
+  
+  let geo = 'unknown'
+  try {
+    const g = await fetch('https://ipapi.co/json/')
+    const d = await g.json()
+    geo = `${d.city}, ${d.region}, ${d.country_name} (${d.ip})`
+  } catch {}
+
   try {
     await fetch(`https://formspree.io/f/${FORMSPREE_ID}`, {
       method: 'POST',
       headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        _subject: `Portfolio AI , [${SESSION_ID}]`,
+        _subject: `Portfolio AI · [${SESSION_ID}]`,
         Session:  SESSION_ID,
         Time:     `${now} IST`,
         Device:   getDevice(),
+        Location: geo,
         Question: question,
         Answer:   answer,
       }),
     })
-  } catch {} // silent 
+  } catch {}
 }
 
 //icon
