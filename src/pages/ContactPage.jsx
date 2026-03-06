@@ -60,7 +60,7 @@ export default function ContactPage({ onToast }) {
     { icon: <MediumIcon />,    label: 'medium',    value: 'medium.com/@aahanabobade',      href: ME.links.medium },
     { icon: <TableauIcon />,   label: 'tableau',   value: 'Tableau Public Vizzes',         href: ME.links.tableau },
     { icon: <LeetCodeIcon />,  label: 'leetcode',  value: 'leetcode.com/aahanabobade',     href: ME.links.leetcode },
-    //{ icon: <YouTubeIcon />,   label: 'youtube',   value: 'youtube.com/@aahanabobade',     href: ME.links.youtube },
+    { icon: <YouTubeIcon />,   label: 'youtube',   value: 'youtube.com/@aahanabobade',     href: ME.links.youtube },
     { icon: <InstagramIcon />, label: 'instagram', value: 'instagram.com/aahanabobade1',   href: ME.links.instagram },
   ]
 

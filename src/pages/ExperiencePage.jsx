@@ -6,7 +6,7 @@ export default function ExperiencePage() {
 
   return (
     <div className="px-12 py-12 max-w-[940px]">
-      <p className="text-vscode-gcm italic text-[14px] mb-3">// experience.ts — professional journey</p>
+      <p className="text-vscode-gcm italic text-[14px] mb-3">// experience.ts - professional journey</p>
       <h2 className="font-display text-[35px] font-extrabold text-vscode-bright tracking-tight mb-1">
         Experience
       </h2>

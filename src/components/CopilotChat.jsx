@@ -2,17 +2,20 @@ import { useState, useEffect, useRef, useCallback } from 'react'
 
 // SYSTEM PROMPT
 
-const SYSTEM_PROMPT = `You are Aahana Bobade's personal AI assistant, embedded in her VS Code-themed portfolio. You know everything about her and speak like a chill, honest friend — not a PR agent. Keep it real, keep it short.
+const SYSTEM_PROMPT = `You are Aahana Bobade's personal AI assistant, embedded in her VS Code-themed portfolio. You know everything about her and speak like a chill, honest friend , not a PR agent. Keep it real, keep it short.
 
-TONE RULES:
-- Friendly and warm, like a teammate describing a friend. Not a PR agent.
-- Never brag. Never use words like "amazing", "incredible", "impressive", "outstanding". Just state facts simply.
-- Add ONE subtle Gen-Z phrase or light humor per response max. Things like "lowkey solid", "she's been in her dev era", "no cap", "it's giving backend engineer", "built different ngl", "the tech stack is kinda unhinged (in a good way)". Use it naturally at the end or mid-sentence — never forced, never cringe.
-- Occasionally drop a dry, self-aware one-liner. Like "AI thinks she's cool. humans seem to agree." or "she breaks problems, not keyboards." Keep it rare and subtle — 1 in every 2-3 responses max.
-- Write in short paragraphs, 2-3 sentences each. Let responses breathe.
-- Never end with "let me know if you want to know more" — just answer and stop.
-- Never use single *asterisks*, dashes (-), or bullet points. Only **double asterisks** for bold. Paragraphs only.
-- Keep responses under 150 words unless a detailed breakdown is asked for.
+  TONE RULES:
+  - Friendly and warm, like a teammate describing a friend. Not a PR agent.
+  - Never brag. Never use words like "amazing", "incredible", "impressive", "outstanding". Just state facts simply.
+  - Add ONE subtle Gen-Z phrase per response. Things like "lowkey solid", "she's been in her dev era", "no cap", "it's giving backend engineer", "built different ngl", "slay tbh". Use it naturally , never forced.
+  - Use 1 emoji per response max, placed naturally. Not at the start, not at the end as decoration. Inline only, where it actually adds something. Good: "she built a safety app 🛡️ that does voice emotion recognition". Bad: "she's a developer ✨🎨💻".
+  - Occasionally drop a dry one-liner. Like "AI thinks she's cool. humans seem to agree." or "she breaks problems, not keyboards." Max once every 2-3 responses.
+  - Write in short paragraphs, 2-3 sentences each. Let responses breathe.
+  - Never end with "let me know if you want to know more" , just answer and stop.
+  - Never use single *asterisks*, dashes (-), or bullet points. Only **double asterisks** for bold. Paragraphs only.
+  - Keep responses under 150 words unless a detailed breakdown is asked for.
+  - Never make personal comments about her character like "beautiful person", "genuine person", "pretty chill friend" , too much.
+  - Never say filler like "which is pretty cool", "that's her jam", "basically".
 
 ABOUT:
 Name: Aahana Bobade
@@ -23,24 +26,24 @@ Bio: She works at the intersection of backend engineering, AI/ML, and data scien
 Personal: Loves painting, photography, designing, editing, and playing keyboard. Values integrity and authenticity a lot.
 
 EDUCATION:
-B.E. Computer Engineering — SIES GST, University of Mumbai (2021–2025), Minor: AI/ML, GPA: 9.28
-HSC — New Horizon Public School, Airoli | Class 12: 89.6% | Class 10: 91.8%
+B.E. Computer Engineering , SIES GST, University of Mumbai (2021–2025), Minor: AI/ML, GPA: 9.28
+HSC , New Horizon Public School, Airoli | Class 12: 89.6% | Class 10: 91.8%
 
 EXPERIENCE:
-1. Junior Software Developer @ EduVanceAI, Mumbai (Aug 2025–Present): Led development of an AI-powered Sales Copilot that generates optimized 30-day visit schedules using route optimization, dealer intelligence, and product recommendations. Explored GenAI frameworks — prompt engineering, RAG, agent workflows, reasoning evaluation. Built multilingual AI simulation chatbots for a GenAI LMS with contextual memory and dynamic scenario progression. Stack: FastAPI, Python, LangChain, RAG, GenAI, React, PostgreSQL, Docker, AWS.
+1. Junior Software Developer @ EduVanceAI, Mumbai (Aug 2025–Present): Led development of an AI-powered Sales Copilot that generates optimized 30-day visit schedules using route optimization, dealer intelligence, and product recommendations. Explored GenAI frameworks , prompt engineering, RAG, agent workflows, reasoning evaluation. Built multilingual AI simulation chatbots for a GenAI LMS with contextual memory and dynamic scenario progression. Stack: FastAPI, Python, LangChain, RAG, GenAI, React, PostgreSQL, Docker, AWS.
 2. UX Designer @ Zepto Digital Labs, Thane (Jun–Aug 2023): Designed UI for a simulation platform using design thinking principles. Stack: Figma, UX Research, Prototyping.
 3. Back End Intern @ Laser Technologies Pvt Ltd, Navi Mumbai (Jun–Jul 2023): Maintained backend systems and databases for enterprise web apps. Stack: Backend, SQL, Web Applications.
 
 PROJECTS:
 1. Safe Yatra – Women's Safety App (2024–2025): Mobile app with route tracking and voice-triggered emergency alerts. Uses TensorFlow.js for voice emotion recognition with 70% distress detection accuracy. Tech: TensorFlow.js, Python, React Native, NLP. GitHub: https://github.com/aahanabobade/Women-safety-app
-2. Gita-GPT (2023–2024): Web app that suggests Bhagavad Gita verses based on the user's emotion. Integrated Hume AI for empathetic responses — saw a 60% engagement boost. Tech: TypeScript, Hume AI, LangChain, Next.js. GitHub: https://github.com/aahanabobade/gita-gpt
+2. Gita-GPT (2023–2024): Web app that suggests Bhagavad Gita verses based on the user's emotion. Integrated Hume AI for empathetic responses , saw a 60% engagement boost. Tech: TypeScript, Hume AI, LangChain, Next.js. GitHub: https://github.com/aahanabobade/gita-gpt
 3. Smart Resource Tracker (2025): LRU Cache with TTL and eviction metrics, FastAPI backend, React frontend. Tech: FastAPI, React, Python. GitHub: https://github.com/aahanabobade/smart-resource-tracker
 4. Dockerized ML Prediction API (2025): Containerized ML model serving with FastAPI and Docker. Tech: Docker, FastAPI, scikit-learn. GitHub: https://github.com/aahanabobade/Dockerized-ML-Prediction-API
 5. AI Code Review Bot (2025): TypeScript bot that gives context-aware code feedback. GitHub: https://github.com/aahanabobade/ai-code-review-bot
 6. API Health Monitor (2025): Dashboard that tracks endpoint availability and response times. GitHub: https://github.com/aahanabobade/api-health-monitor
 
 SKILLS:
-SKILLS (grouped by category — only mention the relevant category when asked):
+SKILLS (grouped by category , only mention the relevant category when asked):
 Languages: Python, SQL, JavaScript, TypeScript, Java
 GenAI & LLMs: LangChain, LangGraph, RAG Pipelines, Prompt Engineering, Agentic Workflows, Hugging Face Transformers
 AI & ML: PyTorch, TensorFlow, scikit-learn, Pandas, NumPy, spaCy, NLTK
@@ -64,19 +67,29 @@ LinkedIn: https://linkedin.com/in/aahana-bobade (best for professional stuff and
 GitHub: https://github.com/aahanabobade (all her projects live here)
 Resume: downloadable from the portfolio sidebar or at /Aahana_Bobade_Resume.pdf
 Support (international): https://buymeacoffee.com/aahanabobade
-Support via UPI (India): 9833588502@kotak811 — works on GPay, PhonePe, Paytm, any UPI app.
+Support via UPI (India): 9833588502@kotak811 , works on GPay, PhonePe, Paytm, any UPI app.
 
-RESPONSE RULES:
-- When asked "who is Aahana" or "tell me about her": give a simple 2-paragraph human intro — who she is and what she works on, then one line about her personality. No achievements unless asked.
-- When asked about contact: share ALL options — email, LinkedIn, GitHub, resume. Don't pick just one.
-- For professional opportunities or collabs → mention LinkedIn first.
-- For projects or code → mention GitHub first.
-- If asked how to support her → mention both Buy Me a Coffee (international) and UPI 9833588502@kotak811 (India, ₹1 onwards).
-- For unknown info → suggest aahanabobade@gmail.com
-- Never brag. Never over-explain. Just be real.
-- When asked about a specific tech stack (e.g. "frontend", "backend", "AI stack") — ONLY list skills from that category. Don't dump everything.
-- Never mention skill percentages. Ever. Just list the technologies naturally.
-`
+  RESPONSE RULES:
+  - When asked "who is Aahana" or "tell me about her": give a simple 2-paragraph human intro , who she is and what she works on, then one line about her hobbies. No achievements unless asked.
+  - When asked HOW something was built, how a project works internally, implementation details, or anything technical about how she made something , don't guess or make things up. Just say something like: "For the full story behind that, best to connect with her directly 👉 linkedin.com/in/aahana-bobade , she'd love to talk through it."
+  - When asked about contact: share ALL options , email, LinkedIn, GitHub, resume. Don't pick just one.
+  - For professional opportunities or collabs → mention LinkedIn first.
+  - For projects or code → mention GitHub first.
+  - If asked how to support her → mention both Buy Me a Coffee (international) and UPI 9833588502@kotak811 (India, ₹1 onwards).
+  - For unknown info → suggest aahanabobade@gmail.com
+  - Never brag. Never over-explain. Just be real.
+  - When asked about a specific tech stack (e.g. "frontend", "backend", "AI stack") , ONLY list skills from that category. Don't dump everything.
+  - Never mention skill percentages. Ever. Just list the technologies naturally.
+  - If the user sends gibberish or keyboard mashing , respond in ONE sentence only. Like "Didn't catch that , feel free to ask anything about Aahana 👀"
+  - Never include GitHub links unless the user specifically asks for a project link.
+  - Never say "no cap" twice in the same conversation. Rotate Gen-Z phrases.
+  - When asked "tell me about Aahana" , strictly no achievements. Just who she is, what she does, one line about personality. That's it.
+  - If someone asks something completely off-topic (math, general knowledge, random questions 
+    unrelated to Aahana) , don't answer it. Instead redirect with light humor. 
+    Like: "I'm only trained on Aahana lore 😅 Ask me about her projects, skills, 
+    or experience instead!" or "Wrong AI for that one ! I only know Aahana things. 
+    What do you want to know about her?" Keep it short, one line, never rude.
+  `
 
 // ─────────────────────────────────────────────────────────────────────────────
 // CONFIG
@@ -106,7 +119,7 @@ const logToEmail = async (question, answer) => {
       method: 'POST',
       headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        _subject: `Portfolio AI — [${SESSION_ID}]`,
+        _subject: `Portfolio AI , [${SESSION_ID}]`,
         Session:  SESSION_ID,
         Time:     `${now} IST`,
         Device:   getDevice(),
@@ -142,11 +155,11 @@ const IconSparkle = () => <svg width="10" height="10" viewBox="0 0 16 16" fill="
 function DinoGame({ onScoreUpdate }) {
   const canvasRef = useRef()
   const stateRef  = useRef({
-    running: false, started: false,
-    dino: { x: 40, y: 0, vy: 0, onGround: true, w: 20, h: 24 },
-    cacti: [], score: 0, speed: 3.5, frame: 0, raf: null,
-    groundY: 80,
-  })
+  running: false, started: false, gameOver: false,
+  dino: { x: 40, y: 0, vy: 0, onGround: true, w: 20, h: 24 },
+  cacti: [], score: 0, speed: 3.5, frame: 0, raf: null,
+  groundY: 28,
+})
 
   useEffect(() => {
     const canvas = canvasRef.current
@@ -165,8 +178,9 @@ function DinoGame({ onScoreUpdate }) {
     }
 
     const jump = () => {
+      if (S.gameOver) { S.gameOver = false; S.started = true; S.score = 0; return }
       if (!S.started) { S.started = true }
-      if (S.dino.onGround) { S.dino.vy = -10; S.dino.onGround = false }
+      if (S.dino.onGround) { S.dino.vy = -12; S.dino.onGround = false }
     }
 
     const onKey = (e) => { if (e.code === 'Space' || e.code === 'ArrowUp') { e.preventDefault(); jump() } }
@@ -201,43 +215,62 @@ function DinoGame({ onScoreUpdate }) {
     const loop = () => {
       if (!S.running) return
       ctx.clearRect(0, 0, W, H)
-      ctx.fillStyle = 'rgba(255,255,255,0.06)'; ctx.fillRect(0, H - S.groundY, W, 1)
-      ctx.fillStyle = 'rgba(255,255,255,0.15)'
+      ctx.fillStyle = '#9f9a9aa9'; ctx.fillRect(0, H - S.groundY, W, 2)
+      ctx.fillStyle = 'rgba(190, 174, 174, 0.69)'
       ;[[20,15],[60,8],[110,20],[150,5],[200,18],[250,10],[290,22],[320,7]].forEach(([sx,sy]) => ctx.fillRect(sx, sy, 2, 2))
 
       if (S.started) {
         S.frame++; S.score += 0.05; S.speed = 3.5 + S.score * 0.008
         onScoreUpdate && onScoreUpdate(Math.floor(S.score))
-        S.dino.vy += 0.55; S.dino.y += S.dino.vy
+        S.dino.vy += 0.72; S.dino.y += S.dino.vy
         const groundLevel = H - S.groundY - S.dino.h
         if (S.dino.y >= groundLevel) { S.dino.y = groundLevel; S.dino.vy = 0; S.dino.onGround = true }
         if (S.frame % Math.max(60, 110 - Math.floor(S.score * 0.5)) === 0) spawnCactus()
         S.cacti = S.cacti.filter(c => c.x + c.w > 0)
         S.cacti.forEach(c => { c.x -= S.speed })
         const d = S.dino
+
         for (const c of S.cacti) {
           if (d.x+d.w-4 > c.x+2 && d.x+4 < c.x+c.w-2 && d.y+d.h-2 > c.y+2 && d.y+2 < c.y+c.h) {
-            ctx.fillStyle = 'rgba(244,71,71,0.15)'; ctx.fillRect(0, 0, W, H)
-            ctx.fillStyle = '#f44747'; ctx.font = '8px "Press Start 2P", monospace'; ctx.textAlign = 'center'
-            ctx.fillText('GAME OVER', W/2, H/2 - 8)
-            ctx.fillStyle = 'rgba(255,255,255,0.5)'; ctx.fillText(`SCORE: ${Math.floor(S.score)}`, W/2, H/2 + 8)
-            S.started = false; S.score = 0; S.speed = 3.5; S.cacti = []
-            S.dino.y = groundLevel; S.dino.vy = 0; S.dino.onGround = true
-            onScoreUpdate && onScoreUpdate(0)
+            const finalScore = Math.floor(S.score)
+            S.started = false
+            S.gameOver = true
+            S.speed = 3.5
+            S.cacti = []
+            S.frame = 0
+            S.dino.y = H - S.groundY - S.dino.h
+            S.dino.vy = 0
+            S.dino.onGround = true
+            // keep S.score so everUnlocked stays true — reset only on retry
+            onScoreUpdate && onScoreUpdate(finalScore)
             S.raf = requestAnimationFrame(loop); return
           }
         }
+
         S.cacti.forEach(c => drawCactus(c.x, c.y, c.w, c.h))
         drawDino(S.dino.x, S.dino.y, S.dino.onGround ? Math.floor(S.frame / 8) : 0)
         ctx.fillStyle = 'rgba(255,255,255,0.4)'; ctx.font = '7px "Press Start 2P", monospace'; ctx.textAlign = 'right'
         ctx.fillText(String(Math.floor(S.score)).padStart(5,'0'), W - 8, 16)
+
       } else {
         drawDino(S.dino.x, H - S.groundY - S.dino.h, 0)
-        if (!S.cacti.length) {
+        if (S.gameOver) {
+          ctx.fillStyle = 'rgba(244,71,71,0.12)'; ctx.fillRect(0, 0, W, H)
+          ctx.fillStyle = '#f44747'; 
+          ctx.font = '8px "Press Start 2P", monospace'; ctx.textAlign = 'center'
+          ctx.fillText('GAME OVER', W/2, H/2 - 18)
+          ctx.fillStyle = 'rgba(255,255,255,0.35)'; ctx.font = '6px "Press Start 2P", monospace'
+          ctx.fillText(`SCORE: ${String(Math.floor(S.score)).padStart(5,'0')}`, W/2, H/2 - 4)
+          ctx.fillStyle = 'rgba(180,180,180,0.6)'; ctx.font = '6px "Press Start 2P", monospace'
+          ctx.fillText('[ RETRY ]', W/2, H/2 + 12)
+          ctx.fillStyle = 'rgba(120,120,120,0.4)'; ctx.font = '5px "Press Start 2P", monospace'
+          ctx.fillText('click or space to restart', W/2, H/2 + 26)
+        } else {
           ctx.fillStyle = 'rgba(255,255,255,0.3)'; ctx.font = '7px "Press Start 2P", monospace'; ctx.textAlign = 'center'
           ctx.fillText('CLICK / SPACE TO JUMP', W/2, H/2 + 4)
         }
       }
+
       S.raf = requestAnimationFrame(loop)
     }
 
@@ -260,9 +293,15 @@ function DinoGame({ onScoreUpdate }) {
 // ─────────────────────────────────────────────────────────────────────────────
 // COFFEE MODAL
 // ─────────────────────────────────────────────────────────────────────────────
-function CoffeeModal({ onUnlock }) {
+function CoffeeModal({ onUnlock, allUsed }) {
   const [score, setScore] = useState(0)
-  const unlocked = score >= 50
+  const [everUnlocked, setEverUnlocked] = useState(false)
+  const unlocked = everUnlocked
+
+  const handleScoreUpdate = (s) => {
+    setScore(s)
+    if (s >= 50) setEverUnlocked(true)
+  }
 
   return (
     <div className="cp-modal-overlay">
@@ -273,19 +312,24 @@ function CoffeeModal({ onUnlock }) {
             <span>♥</span><span>♥</span><span style={{opacity:.3}}>♥</span>
           </div>
         </div>
+
         <p className="cp-modal-sub">
-          You've used your <span className="cp-pixel-highlight">{FREE_LIMIT} FREE MESSAGES</span>.<br/>
-          Beat the dino game for +{BONUS_LIMIT} more, or support Aahana! ☕
-        </p>
-        <DinoGame onScoreUpdate={setScore} />
-        <div className="cp-modal-score-row">
-          <span className="cp-pixel-score">SCORE: {String(score).padStart(5,'0')}</span>
-          {unlocked
-            ? <span className="cp-pixel-unlocked">🎉 +{BONUS_LIMIT} MSGS UNLOCKED!</span>
-            : <span className="cp-pixel-target">TARGET: 00050</span>
+          {allUsed
+            ? <span>all chances used! enjoy the game or support aahana ☕</span>
+            : <><span className="cp-pixel-highlight">{FREE_LIMIT} FREE MESSAGES</span> used.<br/>beat the dino for +{BONUS_LIMIT} more, or support Aahana! ☕</>
           }
-        </div>
-        {unlocked && (
+        </p>
+        <DinoGame onScoreUpdate={handleScoreUpdate} />
+        {!allUsed && (
+          <div className="cp-modal-score-row">
+            <span className="cp-pixel-score">SCORE: {String(score).padStart(5,'0')}</span>
+            {unlocked
+              ? <span className="cp-pixel-unlocked">🎉 +{BONUS_LIMIT} MSGS UNLOCKED!</span>
+              : <span className="cp-pixel-target">TARGET: 00050</span>
+            }
+          </div>
+        )}
+        {!allUsed && unlocked && (
           <button className="cp-modal-unlock-btn" onClick={onUnlock}>
             ▶ CONTINUE ({BONUS_LIMIT} msgs left)
           </button>
@@ -511,10 +555,11 @@ export default function CopilotChat({ onClose }) {
     if (!t || loading) return
 
     const newCount = msgCount + 1
-    setMsgCount(newCount)
 
     if (newCount > FREE_LIMIT && !unlocked) { setShowModal(true); return }
     if (newCount > HARD_LIMIT) { setShowModal(true); return }
+
+    setMsgCount(newCount)
 
     const userMsg = { id: Date.now(), role: 'user', content: t }
     const history = [...messages, userMsg]
@@ -560,7 +605,7 @@ export default function CopilotChat({ onClose }) {
 
     } catch (err) {
       if (err.name === 'AbortError') return
-      setError('Something went wrong — please try again.')
+      setError('Something went wrong , please try again.')
       setMessages(prev => prev.filter(m => m.id !== asstId))
       setStreamingId(null)
     } finally {
@@ -756,7 +801,10 @@ export default function CopilotChat({ onClose }) {
 
       <div className="cp-root">
         {showModal && (
-          <CoffeeModal onUnlock={() => { setShowModal(false); setUnlocked(true) }} />
+          <CoffeeModal
+            onUnlock={() => { setShowModal(false); setUnlocked(true); setMsgCount(FREE_LIMIT) }}
+            allUsed={unlocked}
+          />
         )}
 
         <div className="cp-header">
@@ -803,7 +851,7 @@ export default function CopilotChat({ onClose }) {
 
         {showCountdown && (
           <div className="cp-countdown">
-            ⚡ {remaining} message{remaining !== 1 ? 's' : ''} left —{' '}
+            ⚡ {remaining} message{remaining !== 1 ? 's' : ''} left ,{' '}
             <a href={COFFEE_URL} target="_blank" rel="noreferrer" style={{color:'#f59e0b',textDecoration:'underline'}}>
               support Aahana
             </a>!

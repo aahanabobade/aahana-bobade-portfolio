@@ -12,7 +12,7 @@ export const ME = {
     linkedin:  "https://www.linkedin.com/in/aahana-bobade",
     medium:    "https://medium.com/@aahanabobade",
     tableau:   "https://public.tableau.com/app/profile/aahana.bobade/vizzes",
-    //youtube:   "https://www.youtube.com/@aahanabobade",
+    youtube:   "https://www.youtube.com/@aahanabobade",
     instagram: "https://www.instagram.com/aahanabobade1",
     leetcode:  "https://leetcode.com/u/aahanabobade/",
   },
@@ -74,7 +74,7 @@ export const PROJECTS = [
     id: 2, icon: "🧠", accent: "#6c63ff",
     type: "AI · GraphRAG · Full Stack",
     name: "OrgMind - Company Intelligence Assistant",
-    desc: "Hybrid GraphRAG system combining Neo4j knowledge graph traversal with Pinecone vector search. Answers org questions standard RAG can't — like 'Who owns this project and what have they written about security?' Built with FastAPI, React, and GPT-4o.",
+    desc: "Hybrid GraphRAG system combining Neo4j knowledge graph traversal with Pinecone vector search. Answers org questions standard RAG can't , like 'Who owns this project and what have they written about security?' Built with FastAPI, React, and GPT-4o.",
     tags: ["Neo4j", "Pinecone", "GPT-4o", "FastAPI", "React", "LangChain", "GraphRAG"],
     link: "https://github.com/aahanabobade/OrgMind",
     demo: "https://orgmind.vercel.app/",
@@ -85,7 +85,7 @@ export const PROJECTS = [
     id: 3, icon: "🕉️", accent: "#4ec9b0",
     type: "Full Stack · NLP · GenAI",
     name: "Gita-GPT",
-    desc: "Web app that suggests Bhagavad Gita verses based on user emotion. Integrated Hume AI for empathetic chatbot support — boosted engagement by 60%. Won 1st Prize at Cognition Technical Fest 2023.",
+    desc: "Web app that suggests Bhagavad Gita verses based on user emotion. Integrated Hume AI for empathetic chatbot support , boosted engagement by 60%. Won 1st Prize at Cognition Technical Fest 2023.",
     tags: ["TypeScript", "Hume AI", "LangChain", "NLP", "Next.js"],
     link: "https://github.com/aahanabobade/gita-gpt",
     period: "Aug 2023 – May 2024",
@@ -121,7 +121,7 @@ export const PROJECTS = [
     id: 6, icon: "📡", accent: "#ff9d4b",
     type: "Monitoring · HTML · DevOps",
     name: "API Health Monitor",
-    desc: "Lightweight API health monitoring dashboard. Tracks endpoint availability, response times, and status codes — giving developers real-time visibility into their services.",
+    desc: "Lightweight API health monitoring dashboard. Tracks endpoint availability, response times, and status codes , giving developers real-time visibility into their services.",
     tags: ["HTML", "JavaScript", "DevOps", "Monitoring"],
     link: "https://github.com/aahanabobade/api-health-monitor",
     period: "Jan 2025",
@@ -240,7 +240,7 @@ export const PILLS = [
 
 export const EXPERIENCE = [
   {
-    date: "2025 — Present", current: true,
+    date: "2025 - Present", current: true,
     role: "Junior Software Developer",
     company: "EduVanceAI",
     location: "",
@@ -256,7 +256,7 @@ export const EXPERIENCE = [
     tags: ["Figma", "UX Research", "Design Thinking", "Prototyping"],
   },
   {
-    date: "Jun 2023 — Jul 2023", current: false,
+    date: "Jun 2023 - Jul 2023", current: false,
     role: "Back End Intern",
     company: "Laser Technologies Pvt Ltd",
     location: "Navi Mumbai",

@@ -178,7 +178,7 @@ export const SOCIAL_META = {
   linkedin:  { Icon: LinkedInIcon, color: '#0a66c2', label: 'LinkedIn'  },
   medium:    { Icon: MediumIcon,   color: '#ffffff', label: 'Medium'    },
   tableau:   { Icon: TableauIcon,  color: '#e97627', label: 'Tableau'   },
-  //youtube:   { Icon: YouTubeIcon,  color: '#ff0000', label: 'YouTube'   },
+  youtube:   { Icon: YouTubeIcon,  color: '#ff0000', label: 'YouTube'   },
   instagram: { Icon: InstagramIcon,color: '#e1306c', label: 'Instagram' },
   leetcode:  { Icon: LeetCodeIcon, color: '#ffa116', label: 'LeetCode'  },
   email:     { Icon: MailIcon,     color: '#4fc1ff', label: 'Email'     },
